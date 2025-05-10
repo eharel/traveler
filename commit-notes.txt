@@ -1,0 +1,2 @@
+    -   Refactored folder structure, organizing components and their modules into a parent folder with some chain-folders for related components (countries and cities).
+    -   Added nested routes for the app route, with an index route
