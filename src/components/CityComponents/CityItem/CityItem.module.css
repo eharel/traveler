@@ -33,6 +33,7 @@
 
 .date {
   font-size: 1.5rem;
+  text-align: right;
 }
 
 .deleteBtn {
@@ -46,6 +47,7 @@
   font-weight: 400;
   cursor: pointer;
   transition: all 0.2s;
+  margin-left: auto;
 }
 
 .deleteBtn:hover {
