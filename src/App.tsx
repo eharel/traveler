@@ -1,11 +1,11 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Product from "./pages/Product";
+import Product from "./pages/Product/Product";
 import Pricing from "./pages/Pricing";
-import Home from "./pages/Home";
-import AppLayout from "./pages/AppLayout";
+import Home from "./pages/Home/Home";
+import AppLayout from "./pages/AppLayout/AppLayout";
 import PageNotFound from "./pages/PageNotFound";
 import PagesNavBar from "./components/NavComponents/PagesNavBar/PagesNavBar";
-import Login from "./pages/Login";
+import Login from "./pages/Login/Login";
 
 import "./index.css";
 import CityList from "./components/CityComponents/CityList/CityList";
@@ -27,7 +27,7 @@ function App() {
         setIsLoading(false);
       } catch (error) {
         // console.error("Error fetching cities:", error);
-        alert("Error fetching cities:", error);
+        alert("Error fetching cities:" + error);
         setIsLoading(false);
       } finally {
         setIsLoading(false);

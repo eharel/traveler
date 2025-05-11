@@ -1,6 +1,10 @@
 import styles from "./Message.module.css";
 
-function Message({ message }) {
+interface MessageProps {
+  message: string; // The message to display
+}
+
+function Message({ message }: MessageProps) {
   return (
     <p className={styles.message}>
       <span role="img">👋</span> {message}
