@@ -9,4 +9,10 @@
   grid-template-columns: 1fr 1fr;
   align-content: start;
   gap: 1.6rem;
+  scrollbar-width: none; /* For Firefox */
+  -ms-overflow-style: none; /* For Internet Explorer and Edge */
+}
+
+.countryList::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari, and Opera */
 }
