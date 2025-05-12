@@ -1,6 +1,8 @@
 import styles from "./CityItem.module.css";
 
-const formatDate = (date) =>
+import { City } from "../../../types";
+
+const formatDate = (date: string) =>
   new Intl.DateTimeFormat("en", {
     day: "numeric",
     month: "long",
@@ -8,7 +10,11 @@ const formatDate = (date) =>
     // weekday: "long",
   }).format(new Date(date));
 
-function CityItem({ city }) {
+interface CityItemProps {
+  city: City;
+}
+
+function CityItem({ city }: CityItemProps) {
   const { cityName, emoji, date, country } = city;
 
   return (
