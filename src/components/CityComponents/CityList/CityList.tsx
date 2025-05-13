@@ -1,6 +1,6 @@
 import Spinner from "../../Spinner/Spinner";
 import Message from "../../Message/Message";
-import CityItem from "../CityItem/CityItem";
+import CityListItem from "../CityListItem/CityListItem";
 import { City } from "../../../types"; // Importing the City type
 import styles from "./CityList.module.css";
 
@@ -21,7 +21,7 @@ function CityList({ cities, isLoading }: CityListProps) {
   return (
     <ul className={styles.cityList}>
       {cities.map((city) => (
-        <CityItem city={city} key={city.id} />
+        <CityListItem city={city} key={city.id} />
       ))}
     </ul>
   );
