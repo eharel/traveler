@@ -1,5 +1,5 @@
 export type City = {
-  id: string;
+  id: number;
   cityName: string;
   country: string;
   emoji: string;
@@ -29,3 +29,11 @@ export function createCountry(
     emoji,
   };
 }
+
+export const SEARCH_PARAMS = {
+  lat: "lat",
+  lng: "lng",
+  id: "id",
+} as const;
+
+export type SearchParamsKeys = keyof typeof SEARCH_PARAMS;
