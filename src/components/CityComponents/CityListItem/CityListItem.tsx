@@ -17,13 +17,16 @@ interface CityListItemProps {
 }
 
 export default function CityListItem({ city }: CityListItemProps) {
+  const { currentCity } = useCities();
   const { cityName, emoji, date, id, position } = city;
 
   return (
     <li>
       {/* <Link className={styles.cityItem} to={`/app/cities/${id}`}> */}
       <Link
-        className={styles.cityItem}
+        className={`${styles.cityItem} ${
+          currentCity?.id === id ? styles["cityItem--active"] : ""
+        }`}
         to={`${id}?${SEARCH_PARAMS.lat}=${position.lat}&${SEARCH_PARAMS.lng}=${position.lng}`}
       >
         <span className={styles.emoji}>{emoji}</span>
