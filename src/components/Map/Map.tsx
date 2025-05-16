@@ -4,9 +4,11 @@ import { SEARCH_PARAMS } from "../../types";
 import { MapContainer, Marker, TileLayer, Popup } from "react-leaflet";
 import { LatLngExpression } from "leaflet";
 import { useState } from "react";
+import { useCities } from "../../contexts/CityContext";
 
 function Map() {
   const navigate = useNavigate();
+  const { cities } = useCities();
   const [mapPosition, setMapPosition] = useState<LatLngExpression>([45, 2]);
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -25,11 +27,14 @@ function Map() {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png"
         />
-        <Marker position={mapPosition}>
-          <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
-          </Popup>
-        </Marker>
+        {cities.map((city) => (
+          <Marker position={city.position} key={city.id}>
+            <Popup>
+              <span>{city.emoji}</span>
+              <span>{city.cityName}</span>
+            </Popup>
+          </Marker>
+        ))}
       </MapContainer>
     </div>
   );
