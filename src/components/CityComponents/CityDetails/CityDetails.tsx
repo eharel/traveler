@@ -2,6 +2,7 @@ import { useParams, useSearchParams } from "react-router-dom";
 import styles from "./CityDetails.module.css";
 import { City, SEARCH_PARAMS } from "../../../types";
 import Message from "../../Message/Message";
+import { useCities } from "../../../contexts/CityContext";
 
 const formatDate = (date: string | Date) =>
   new Intl.DateTimeFormat("en", {
@@ -11,11 +12,8 @@ const formatDate = (date: string | Date) =>
     weekday: "long",
   }).format(new Date(date));
 
-interface CityDetailsProps {
-  cities: City[];
-}
-
-export default function CityDetails({ cities }: CityDetailsProps) {
+export default function CityDetails() {
+  const { cities } = useCities();
   const [searchParams, setSearchParams] = useSearchParams();
   const lat = searchParams.get(SEARCH_PARAMS.lat);
   const lng = searchParams.get(SEARCH_PARAMS.lng);

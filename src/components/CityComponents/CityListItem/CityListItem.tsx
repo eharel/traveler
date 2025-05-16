@@ -2,6 +2,7 @@ import styles from "./CityListItem.module.css";
 
 import { City, SEARCH_PARAMS } from "../../../types";
 import { Link } from "react-router-dom";
+import { useCities } from "../../../contexts/CityContext";
 
 const formatDate = (date: string) =>
   new Intl.DateTimeFormat("en", {
