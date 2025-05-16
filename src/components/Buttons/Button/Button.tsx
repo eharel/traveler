@@ -2,7 +2,7 @@ import styles from "./Button.module.css";
 
 interface ButtonProps {
   children: React.ReactNode;
-  type?: "primary" | "secondary" | "back";
+  type?: "primary" | "secondary" | "back" | "position";
   size?: "small" | "medium" | "large";
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
