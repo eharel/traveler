@@ -3,13 +3,11 @@ import Message from "../../Message/Message";
 import { City, Country, createCountry } from "../../../types"; // Importing the City type
 import styles from "./CountryList.module.css";
 import CountryItem from "../CountryItem/CountryItem";
+import { useCities } from "../../../contexts/CityContext";
 
-interface CountryListProps {
-  cities: City[]; // Array of city objects
-  isLoading: boolean; // Boolean indicating loading state
-}
+function CountryList() {
+  const { cities, isLoading } = useCities();
 
-function CountryList({ cities, isLoading }: CountryListProps) {
   if (isLoading) {
     return <Spinner />;
   }

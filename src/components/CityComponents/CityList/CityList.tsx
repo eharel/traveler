@@ -1,15 +1,12 @@
 import Spinner from "../../Spinner/Spinner";
 import Message from "../../Message/Message";
 import CityListItem from "../CityListItem/CityListItem";
-import { City } from "../../../types"; // Importing the City type
 import styles from "./CityList.module.css";
+import { useCities } from "../../../contexts/CityContext";
 
-interface CityListProps {
-  cities: City[]; // Array of city objects
-  isLoading: boolean; // Boolean indicating loading state
-}
+function CityList() {
+  const { cities, isLoading } = useCities();
 
-function CityList({ cities, isLoading }: CityListProps) {
   if (isLoading) {
     return <Spinner />;
   }
