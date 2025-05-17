@@ -18,6 +18,7 @@ interface CitiesContextType {
   setCities: (cities: City[]) => void;
   setCurrentCity: (city: City | null) => void;
   findAndSetCurrentCity: (id: number) => Promise<void>;
+  createCity: (city: City) => Promise<void>;
 }
 
 const CitiesContext = createContext<CitiesContextType>({
@@ -27,6 +28,7 @@ const CitiesContext = createContext<CitiesContextType>({
   setCities: () => {},
   setCurrentCity: () => {},
   findAndSetCurrentCity: () => Promise.resolve(),
+  createCity: () => Promise.resolve(),
 });
 
 function CitiesProvider({ children }: { children: ReactNode }) {
@@ -71,6 +73,29 @@ function CitiesProvider({ children }: { children: ReactNode }) {
     setCurrentCity(cities.find((city) => city.id === id) || null);
   }
 
+  async function createCity(newCity: City): Promise<void> {
+    // try {
+    //   setIsLoading(true);
+    //   const response = await fetch(`${URL}/cities/`, {
+    //     method: "POST",
+    //     body: JSON.stringify(newCity),
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //   });
+    //   const data = await response.json();
+    //   console.log(data);
+    //   setCities((cities) => [...cities, data]);
+    // } catch (error) {
+    //   alert("Error creating city:" + error);
+    //   console.log(error);
+    // } finally {
+    //   setIsLoading(false);
+    // }
+
+    setCities((cities) => [...cities, newCity]);
+  }
+
   const value = useMemo(
     () => ({
       cities,
@@ -79,6 +104,7 @@ function CitiesProvider({ children }: { children: ReactNode }) {
       setCities,
       setCurrentCity,
       findAndSetCurrentCity,
+      createCity,
     }),
     [cities, isLoading, currentCity]
   );
