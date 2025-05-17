@@ -17,9 +17,16 @@ interface CityListItemProps {
 }
 
 export default function CityListItem({ city }: CityListItemProps) {
-  const { currentCity } = useCities();
+  const { currentCity, deleteCity } = useCities();
   const { cityName, emoji, date, id, position } = city;
 
+  async function handleDelete(
+    e: React.MouseEvent<HTMLButtonElement>,
+    id: number
+  ) {
+    e.preventDefault();
+    await deleteCity(id);
+  }
   return (
     <li>
       {/* <Link className={styles.cityItem} to={`/app/cities/${id}`}> */}
@@ -32,7 +39,12 @@ export default function CityListItem({ city }: CityListItemProps) {
         <span className={styles.emoji}>{emoji}</span>
         <h3 className={styles.cityName}>{cityName}</h3>
         <time className={styles.date}>({formatDate(date)})</time>
-        <button className={styles.deleteBtn}>&times;</button>
+        <button
+          className={styles.deleteBtn}
+          onClick={(e) => handleDelete(e, id)}
+        >
+          &times;
+        </button>
       </Link>
     </li>
   );

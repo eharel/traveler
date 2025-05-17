@@ -18,6 +18,8 @@ interface CitiesContextType {
   setCities: (cities: City[]) => void;
   setCurrentCity: (city: City | null) => void;
   findAndSetCurrentCity: (id: number) => Promise<void>;
+  createCity: (city: City) => Promise<void>;
+  deleteCity: (id: number) => Promise<void>;
 }
 
 const CitiesContext = createContext<CitiesContextType>({
@@ -27,6 +29,8 @@ const CitiesContext = createContext<CitiesContextType>({
   setCities: () => {},
   setCurrentCity: () => {},
   findAndSetCurrentCity: () => Promise.resolve(),
+  createCity: () => Promise.resolve(),
+  deleteCity: () => Promise.resolve(),
 });
 
 function CitiesProvider({ children }: { children: ReactNode }) {
@@ -71,6 +75,47 @@ function CitiesProvider({ children }: { children: ReactNode }) {
     setCurrentCity(cities.find((city) => city.id === id) || null);
   }
 
+  async function createCity(newCity: City): Promise<void> {
+    // try {
+    //   setIsLoading(true);
+    //   const response = await fetch(`${URL}/cities/`, {
+    //     method: "POST",
+    //     body: JSON.stringify(newCity),
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //   });
+    //   const data = await response.json();
+    //   console.log(data);
+    //   setCities((cities) => [...cities, data]);
+    // } catch (error) {
+    //   alert("Error creating city:" + error);
+    //   console.log(error);
+    // } finally {
+    //   setIsLoading(false);
+    // }
+
+    setCities((cities) => [...cities, newCity]);
+  }
+
+  async function deleteCity(id: number): Promise<void> {
+    // try {
+    //   setIsLoading(true);
+    //   const response = await fetch(`${URL}/cities/${id}`, {
+    //     method: "DELETE",
+    //   });
+
+    //   setCities((cities) => cities.filter((city) => city.id !== id));
+    // } catch (error) {
+    //   alert("Error deleting city:" + error);
+    //   console.log(error);
+    // } finally {
+    //   setIsLoading(false);
+    // }
+
+    setCities((cities) => cities.filter((city) => city.id !== id));
+  }
+
   const value = useMemo(
     () => ({
       cities,
@@ -79,6 +124,8 @@ function CitiesProvider({ children }: { children: ReactNode }) {
       setCities,
       setCurrentCity,
       findAndSetCurrentCity,
+      createCity,
+      deleteCity,
     }),
     [cities, isLoading, currentCity]
   );
