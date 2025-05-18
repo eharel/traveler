@@ -89,6 +89,8 @@ export function citiesReducer(
       return {
         ...state,
         currentCity: action.payload,
+        isLoading: false,
+        error: null,
       };
 
     default:

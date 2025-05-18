@@ -5,6 +5,7 @@ import {
   useEffect,
   useReducer,
   useMemo,
+  useCallback,
 } from "react";
 import { City, CitiesActionType } from "../../types";
 import { CitiesState, citiesReducer, initialState } from "./citiesReducer";
@@ -19,6 +20,7 @@ interface CitiesContextType extends Omit<CitiesState, "dispatch"> {
   findAndSetCurrentCity: (id: number) => Promise<void>;
   createCity: (city: City) => Promise<void>;
   deleteCity: (id: number) => Promise<void>;
+  error: string | null;
 }
 
 const CitiesContext = createContext<CitiesContextType | null>(null);
@@ -48,10 +50,14 @@ function CitiesProvider({ children }: { children: ReactNode }) {
     fetchCities();
   }, []);
 
-  async function findAndSetCurrentCity(id: number): Promise<void> {
-    const city = state.cities.find((city) => city.id === id) || null;
-    dispatch({ type: CitiesActionType.CITY_CURRENT, payload: city });
-  }
+  const findAndSetCurrentCity = useCallback(
+    async (id: number): Promise<void> => {
+      if (state.currentCity?.id === id) return;
+      const city = state.cities.find((city) => city.id === id) || null;
+      dispatch(citiesActions.setCurrentCity(city));
+    },
+    [state.cities, state.currentCity]
+  );
 
   async function createCity(newCity: City): Promise<void> {
     try {
@@ -97,8 +103,16 @@ function CitiesProvider({ children }: { children: ReactNode }) {
       findAndSetCurrentCity,
       createCity,
       deleteCity,
+      error: state.error,
     }),
-    [state]
+    [
+      state,
+      setCities,
+      setCurrentCity,
+      findAndSetCurrentCity,
+      createCity,
+      deleteCity,
+    ]
   );
 
   return (
