@@ -26,27 +26,26 @@ const CitiesContext = createContext<CitiesContextType | null>(null);
 function CitiesProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(citiesReducer, initialState);
 
-  // With json-server
-  // useEffect(() => {
-  //   async function fetchCities() {
-  //     try {
-  //       dispatch(citiesActions.setLoading());
-  //       const response = await fetch(`${BASE_URL}/cities`);
-  //       const data = await response.json();
-  //       dispatch(citiesActions.loadCities(data));
-  //     } catch (error) {
-  //       console.error("Failed to fetch cities:", error);
-  //       // dispatch({ type: CitiesActionType.ERROR, payload: error.message });
-  //     }
-  //   }
-
-  //   fetchCities();
-  // }, []);
-
-  // Without json-server
   useEffect(() => {
-    dispatch(citiesActions.setLoading());
-    dispatch(citiesActions.loadCities(citiesData.cities));
+    async function fetchCities() {
+      try {
+        dispatch(citiesActions.fetchCitiesRequest());
+        // If using json-server:
+        // const response = await fetch(`${BASE_URL}/cities`);
+        // const data = await response.json();
+        // Using local data:
+        const data = citiesData.cities;
+        dispatch(citiesActions.fetchCitiesSuccess(data));
+      } catch (error) {
+        dispatch(
+          citiesActions.fetchCitiesFailure(
+            error instanceof Error ? error.message : "Failed to fetch cities"
+          )
+        );
+      }
+    }
+
+    fetchCities();
   }, []);
 
   async function findAndSetCurrentCity(id: number): Promise<void> {
@@ -55,19 +54,39 @@ function CitiesProvider({ children }: { children: ReactNode }) {
   }
 
   async function createCity(newCity: City): Promise<void> {
-    dispatch({ type: CitiesActionType.CITY_CREATED, payload: newCity });
+    try {
+      dispatch(citiesActions.createCityRequest());
+      // Add any API call here if needed
+      dispatch(citiesActions.createCitySuccess(newCity));
+    } catch (error) {
+      dispatch(
+        citiesActions.createCityFailure(
+          error instanceof Error ? error.message : "Failed to create city"
+        )
+      );
+    }
   }
 
   async function deleteCity(id: number): Promise<void> {
-    dispatch({ type: CitiesActionType.CITY_DELETED, payload: id });
+    try {
+      dispatch(citiesActions.deleteCityRequest());
+      // Add any API call here if needed
+      dispatch(citiesActions.deleteCitySuccess(id));
+    } catch (error) {
+      dispatch(
+        citiesActions.deleteCityFailure(
+          error instanceof Error ? error.message : "Failed to delete city"
+        )
+      );
+    }
   }
 
   const setCities = (cities: City[]) => {
-    dispatch(citiesActions.loadCities(cities));
+    dispatch(citiesActions.fetchCitiesSuccess(cities));
   };
 
   const setCurrentCity = (city: City | null) => {
-    dispatch({ type: CitiesActionType.CITY_CURRENT, payload: city });
+    dispatch(citiesActions.setCurrentCity(city));
   };
 
   const value = useMemo(
