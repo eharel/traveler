@@ -1,6 +1,7 @@
 import Spinner from "../../Spinner/Spinner";
 import Message from "../../Message/Message";
-import { City, Country, createCountry } from "../../../types"; // Importing the City type
+import { City, Country } from "../../../types";
+import { createCountry } from "../../../types/modelTypes"; // This helper function should probably be moved to a utils folder later
 import styles from "./CountryList.module.css";
 import CountryItem from "../CountryItem/CountryItem";
 import { useCities } from "../../../contexts/CityContext";
