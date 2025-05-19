@@ -1,4 +1,4 @@
-export type City = {
+export interface City {
   id: number;
   cityName: string;
   country: string;
@@ -9,18 +9,20 @@ export type City = {
     lat: number;
     lng: number;
   };
-};
+}
+
+export interface User {
+  name: string;
+  email: string;
+  password: string;
+  avatar: string;
+}
 
 export interface Country {
   id: number;
   name: string;
   emoji: string;
 }
-
-export const SEARCH_PARAMS = {
-  lat: "lat",
-  lng: "lng",
-} as const;
 
 export function createCountry(
   id: number,

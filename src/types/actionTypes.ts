@@ -1,4 +1,4 @@
-import { City } from "./modelTypes";
+import { City, User } from "./modelTypes";
 
 export enum CitiesActionType {
   FETCH_CITIES_REQUEST = "cities/fetch-request",
@@ -24,6 +24,19 @@ export enum CitiesActionType {
 
   LOADING = "loading",
 }
+
+export enum AuthActionType {
+  LOGIN_REQUEST = "auth/login-request",
+  LOGIN_SUCCESS = "auth/login-success",
+  LOGIN_FAILURE = "auth/login-failure",
+  LOGOUT = "auth/logout",
+}
+
+export type AuthAction =
+  | { type: AuthActionType.LOGIN_REQUEST }
+  | { type: AuthActionType.LOGIN_SUCCESS; payload: Omit<User, "password"> }
+  | { type: AuthActionType.LOGIN_FAILURE; payload: string }
+  | { type: AuthActionType.LOGOUT };
 
 export type CitiesAction =
   | { type: CitiesActionType.FETCH_CITIES_REQUEST }

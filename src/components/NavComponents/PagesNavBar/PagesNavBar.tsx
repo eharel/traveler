@@ -1,8 +1,10 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 import styles from "./PagesNavBar.module.css";
 import Logo from "../../Logo/Logo";
+import { useAuth } from "../../../contexts/FakeAuth";
 
 function PagesNavBar() {
+  const { isAuthenticated } = useAuth();
   return (
     <nav className={styles.nav}>
       <Logo />
@@ -13,12 +15,15 @@ function PagesNavBar() {
         <li>
           <NavLink to="/product">Product</NavLink>
         </li>
-        <li>
-          <NavLink to="/login" className={styles.ctaLink}>
-            Login
-          </NavLink>
-        </li>
+        {!isAuthenticated && (
+          <li>
+            <NavLink to="/login" className={styles.ctaLink}>
+              Login
+            </NavLink>
+          </li>
+        )}
       </ul>
+      <Outlet />
     </nav>
   );
 }

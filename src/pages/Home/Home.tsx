@@ -1,7 +1,20 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./Home.module.css";
+import { useAuth } from "../../contexts/FakeAuth";
+import Button from "../../components/Buttons/Button/Button";
 
 export default function Home() {
+  const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+
+  const handleStartAdventure = () => {
+    if (isAuthenticated) {
+      navigate("/app");
+    } else {
+      navigate("/login");
+    }
+  };
+
   return (
     <main className={styles.homepage}>
       <section>
@@ -15,9 +28,9 @@ export default function Home() {
           of. Never forget your wonderful experiences, and show your friends how
           you have wandered the world.
         </h2>
-        <Link to="/app" className="cta">
+        <Button type="primary" onClick={handleStartAdventure}>
           Start your adventure
-        </Link>
+        </Button>
       </section>
     </main>
   );
