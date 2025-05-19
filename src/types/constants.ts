@@ -1,7 +1,7 @@
 import { User } from "./modelTypes";
 
 export const FAKE_USER: User = {
-  name: "Fakey mcFakeFace",
+  name: "Fakey McFakeFace",
   email: "fakeuser@example.com",
   password: "qwerty",
   avatar: "https://i.pravatar.cc/100?u=zz",
