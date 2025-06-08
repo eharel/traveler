@@ -2,7 +2,7 @@
 
 Traveler is a React and TypeScript-based web application designed to help you keep track of the cities and countries you've visited. Whether you're an avid traveler or just starting to explore the world, this app makes it easy to organize and visualize your adventures.
 
-![Traveler App Screenshot](https://via.placeholder.com/800x400?text=Traveler+App+Screenshot)
+![Traveler App Screenshot](/public/images/traveler-screenshot.png)
 
 ## Features
 
